@@ -1,0 +1,25 @@
+{
+  "name": "fale-mais",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "mocha --timeout 10000"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-validator": "^5.3.1",
+    "http-errors": "~1.6.2",
+    "lokijs": "^1.5.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.0.0",
+    "nodemon": "^1.18.10",
+    "sinon": "^7.2.4"
+  }
+}
