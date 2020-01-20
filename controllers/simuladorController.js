@@ -23,7 +23,7 @@ const validateParams = (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(422).json({ errors: errors.array() });
+    res.status(400).json({ errors: errors.array() });
   }
 };
 
@@ -42,9 +42,10 @@ exports.obterValorDaChamada = async (req, res) => {
   
   let planos = await obterPlanos();
   planos = planos.map(plano=>{ return plano.franquia});
+  const planoEncontrado = planos.find(franquia=> parseInt(franquia) === parseInt(req.params.franquia));
 
-  if (!planos || !planos.find(franquia=> parseInt(franquia) === parseInt(req.params.franquia))) {
-    res.status(422).json({status:404, message: 'Franquia inválida.'});
+  if (!planos || !planoEncontrado) {
+    res.status(400).json({status:400, message: 'Franquia inválida.'});
   }
 
   let resultado = 0;
@@ -55,7 +56,7 @@ exports.obterValorDaChamada = async (req, res) => {
   );
 
   if (!valor) {
-    res.status(422).json({status:404, message: 'Plano inválido.'});
+    res.status(400).json({status:400, message: 'Plano inválido.'});
   }
   const valorComPlano = simularComFaleMais(
     req.params.franquia,
