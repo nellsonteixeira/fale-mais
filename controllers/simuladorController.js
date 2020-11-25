@@ -28,7 +28,7 @@ const validateParams = (req, res) => {
 };
 
 const obterPlanos = async () => {
-  let planos = await simuladorRepository.obterPlanos();
+  const planos = await simuladorRepository.obterPlanos();
   return Object.values(planos.data).map(plano => {
     return {
       plano: plano.plano,
