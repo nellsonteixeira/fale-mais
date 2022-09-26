@@ -1,19 +1,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../app');
+const server = require('../../app');
 const should = chai.should();
-const sinon = require('sinon');
-const simuladorRepository = require('../repositories/simulador');
 chai.use(chaiHttp);
 
-describe('simulador', () => {
-  before(done => {
-    const stub = sinon.stub(simuladorRepository, 'obterTarifaOrigemDestino');
-    stub.resolves([{ origem: 11, destino: 17, tarifa: 1.7 }]);
-    done();
-  });
+describe('Simulador Controller:', () => {
 
-  describe('/GET simulador', () => {
+  context('GET /simulador/origem/11/destino/17/franquia/60/minutos/80', () => {
     it('Deve retornar o valor a pagar por 80 minutos pelo fale-mais 60', done => {
       chai
         .request(server)
@@ -33,8 +26,9 @@ describe('simulador', () => {
         });
     });
   });
-  describe('/GET simulador', () => {
-    it('Deve retornar o valor a pagar por 80 minutos pelo fale-mais 60', done => {
+
+  context('GET /simulador/', () => {
+    it('Deve retornar as tarifas e os planos disponiveis', done => {
       chai
         .request(server)
         .get('/simulador/')
@@ -63,7 +57,7 @@ describe('simulador', () => {
             .and.to.be.a('string')
             .and.to.not.be.empty;
 
-            res.body.planos[1].should.have.own
+          res.body.planos[1].should.have.own
             .property('franquia')
             .and.to.be.a('number')
             .and.to.be.above(0);

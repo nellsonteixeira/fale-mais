@@ -2,8 +2,8 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
 const simulador = require('./routes/simuladorRouter');
+const PORT = 3000;
 
 const app = express();
 
@@ -20,6 +20,10 @@ app.use((req, res, next) => {
   });
 
 app.use('/simulador', simulador);
+
+app.listen(PORT, () => {
+  console.log(`Running in http://localhost:${PORT}`);
+})
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

@@ -1,6 +1,6 @@
-const repo = require('../repositories/db');
+const repo = require('./db');
 
-exports.obterTarifaOrigemDestino = async (origem, destino) => {
+const obterTarifaOrigemDestino = async (origem, destino) => {
   const tarifa = await repo.loadCollection('tarifa');
   return await tarifa.find({
     $and: [
@@ -14,10 +14,16 @@ exports.obterTarifaOrigemDestino = async (origem, destino) => {
   });
 };
 
-exports.obterTarifas = async (origem, destino) => {
+const obterTarifas = async () => {
   return await repo.loadCollection('tarifa');
 };
 
-exports.obterPlanos = async (origem, destino) => {
+const obterPlanos = async () => {
   return await repo.loadCollection('plano');
 };
+
+module.exports = {
+  obterTarifaOrigemDestino, 
+  obterTarifas,
+  obterPlanos
+}
